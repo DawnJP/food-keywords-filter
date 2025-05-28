@@ -4,6 +4,114 @@ import re
 import os
 from io import StringIO, BytesIO
 
+# Tùy chỉnh CSS
+st.markdown("""
+    <style>
+    /* Tiêu đề chính */
+    .main .block-container h1 {
+        color: #2E4053;
+        font-size: 2.5rem;
+        font-weight: 700;
+        padding: 1rem 0;
+        border-bottom: 2px solid #2E4053;
+        margin-bottom: 2rem;
+    }
+    
+    /* Tiêu đề phụ */
+    .main .block-container h2 {
+        color: #34495E;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Text area */
+    .stTextArea textarea {
+        border-radius: 8px;
+        border: 1px solid #BDC3C7;
+    }
+    
+    /* Nút */
+    .stButton button {
+        background-color: #3498DB;
+        color: white;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        border: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton button:hover {
+        background-color: #2980B9;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    /* Checkbox */
+    .stCheckbox {
+        margin: 1rem 0;
+    }
+    
+    /* Tab */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 2rem;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        height: 50px;
+        white-space: pre-wrap;
+        background-color: #F8F9F9;
+        border-radius: 8px 8px 0 0;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background-color: #3498DB;
+        color: white;
+    }
+    
+    /* File uploader */
+    .stFileUploader {
+        border: 2px dashed #BDC3C7;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+    
+    /* Dataframe */
+    .stDataFrame {
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* Success message */
+    .stSuccess {
+        background-color: #D5F5E3;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    /* Warning message */
+    .stWarning {
+        background-color: #FCF3CF;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    /* Debug info */
+    .debug-info {
+        background-color: #F8F9F9;
+        border-left: 4px solid #3498DB;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 0 8px 8px 0;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Đọc danh sách từ khóa loại trừ từ file
 def load_exclude_keywords():
     if os.path.exists("exclude_keywords.txt"):
@@ -33,11 +141,13 @@ def filter_keywords(df, exclude_keywords, debug_mode=False):
         translation_match = pattern.search(translation)
         
         if debug_mode and (keyword_match or translation_match):
-            st.write(f"Dòng bị khớp: {row['Keyword Phrase']} - {row['Vietnamese Translation']}")
-            if keyword_match:
-                st.write(f"Từ khóa khớp: {keyword_match.group()}")
-            if translation_match:
-                st.write(f"Bản dịch khớp: {translation_match.group()}")
+            st.markdown(f"""
+                <div class="debug-info">
+                    <strong>Dòng bị khớp:</strong> {row['Keyword Phrase']} - {row['Vietnamese Translation']}<br>
+                    {f'<strong>Từ khóa khớp:</strong> {keyword_match.group()}' if keyword_match else ''}
+                    {f'<strong>Bản dịch khớp:</strong> {translation_match.group()}' if translation_match else ''}
+                </div>
+            """, unsafe_allow_html=True)
         
         return bool(keyword_match) or bool(translation_match)
     
