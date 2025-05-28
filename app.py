@@ -59,12 +59,13 @@ st.markdown("""
     }
     
     .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        white-space: pre-wrap;
-        background-color: #F8F9F9;
-        border-radius: 8px 8px 0 0;
-        gap: 1rem;
-        padding: 0 1rem;
+    height: 50px;
+    white-space: pre-wrap;
+    background-color: black;
+    border-radius: 8px 8px 0 0;
+    gap: 1rem;
+    padding: 0 1rem;
+    border: 1px solid #3498DB;
     }
     
     .stTabs [aria-selected="true"] {
