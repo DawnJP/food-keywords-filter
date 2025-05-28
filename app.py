@@ -30,6 +30,7 @@ st.markdown("""
     .stTextArea textarea {
         border-radius: 8px;
         border: 1px solid #BDC3C7;
+        height:200px;
     }
     
     /* Nút */
@@ -109,6 +110,9 @@ st.markdown("""
         padding: 1rem;
         margin: 0.5rem 0;
         border-radius: 0 8px 8px 0;
+    }
+    ..st-emotion-cache-1w723zb{
+        max-width:1200px !important;
     }
     </style>
 """, unsafe_allow_html=True)
