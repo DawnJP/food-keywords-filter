@@ -7,6 +7,11 @@ from io import StringIO, BytesIO
 # Tùy chỉnh CSS
 st.markdown("""
     <style>
+        .main .block-container {
+        max-width: 1200px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
     /* Tiêu đề chính */
     .main .block-container h1 {
         color: #2E4053;
