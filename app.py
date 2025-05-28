@@ -7,10 +7,13 @@ from io import StringIO, BytesIO
 # Tùy chỉnh CSS
 st.markdown("""
     <style>
-        .main .block-container {
-        max-width: 1200px;
-        padding-left: 2rem;
-        padding-right: 2rem;
+    .st-emotion-cache-1w723zb,
+    .main .block-container,
+    .stApp > div > div > div {
+        max-width: 1200px !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        margin: 0 auto !important;
     }
     /* Tiêu đề chính */
     .main .block-container h1 {
