@@ -17,7 +17,7 @@ def save_exclude_keywords(keywords):
             f.write(kw.strip() + "\n")
 
 # Hàm lọc dữ liệu
-def filter_keywords(df, exclude_keywords):
+def filter_keywords(df, exclude_keywords, debug_mode=False):
     if not exclude_keywords:
         return df
     
@@ -32,7 +32,7 @@ def filter_keywords(df, exclude_keywords):
         keyword_match = pattern.search(keyword)
         translation_match = pattern.search(translation)
         
-        if keyword_match or translation_match:
+        if debug_mode and (keyword_match or translation_match):
             st.write(f"Dòng bị khớp: {row['Keyword Phrase']} - {row['Vietnamese Translation']}")
             if keyword_match:
                 st.write(f"Từ khóa khớp: {keyword_match.group()}")
@@ -74,12 +74,15 @@ if st.button("Lưu danh sách từ khóa loại trừ"):
     save_exclude_keywords(exclude_keywords.splitlines())
     st.success("Đã lưu danh sách từ khóa loại trừ!")
 
+# Thêm tùy chọn debug mode
+debug_mode = st.checkbox("Bật chế độ debug (hiển thị thông tin chi tiết về các từ khóa bị lọc)")
+
 exclude_keywords_list = [kw.strip() for kw in exclude_keywords.splitlines() if kw.strip()]
 
 # --- Bước 3: Lọc và hiển thị kết quả ---
 if df is not None and len(exclude_keywords_list) > 0:
     st.subheader("Kết quả sau khi lọc")
-    filtered_df = filter_keywords(df, exclude_keywords_list)
+    filtered_df = filter_keywords(df, exclude_keywords_list, debug_mode)
     st.write(filtered_df)
     # Tải về file Excel
     output = BytesIO()
